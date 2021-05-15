@@ -3,9 +3,9 @@ class ProductController < ApplicationController
 
     # get route for all products
     def index
-      @product = Product.all
+        products = Product.all
 
-      render json: @product
+        render json: {status: 'SUCCESS', message:'Loaded Products', data:products},status: :ok
     end
 
 
