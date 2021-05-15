@@ -5,7 +5,7 @@ class StoresController < ApplicationController
   def index
     @stores = Store.all
 
-    render json: @stores
+    render json: {status: 'SUCCESS', message:'Loaded stores', data:@stores},status: :ok
   end
 
   # GET /stores/1
