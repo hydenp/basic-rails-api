@@ -38,9 +38,9 @@ class::Api::V1::ProductsController < ApplicationController
         product = Product.find(params[:id])
 
         if product.update(product_params)
-            render json: {status: 'SUCCESS', message:'Product Inventory updated', data:product},status: :ok
+            render json: {status: 'SUCCESS', message:'Product inventory updated', data:product},status: :ok
         else
-            render json: {status: 'ERROR', message:'Could not add the new product', data:product},status: :unprocessable_entity
+            render json: {status: 'ERROR', message:'Could update the inventory', data:product},status: :unprocessable_entity
         end
 
     end
