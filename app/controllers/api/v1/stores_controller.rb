@@ -19,6 +19,13 @@ class::Api::V1::StoresController < ApplicationController
         end
     end
 
+    # DELETE store for testing purposes
+    def destroy
+        store = Store.find(params[:id])
+        store.destroy
+                
+        render json: {status: 'SUCCESS', message:'Deleted store', data:store},status: :ok
+    end
 
     private
     # permit a store_params to have a name for the new store
