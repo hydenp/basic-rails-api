@@ -2,9 +2,9 @@ class::Api::V1::ProductsController < ApplicationController
 
 
     def index
-        @products = Product.all
+        products = Product.all
 
-        render json: @products
+        render json: {status: 'SUCCESS', message:'Loaded Products', data:products},status: :ok
     end
 
 
