@@ -7,16 +7,16 @@ class::Api::V1::ProductsController < ApplicationController
         render json: {status: 'SUCCESS', message:'Loaded Products', data:products},status: :ok
     end
 
-    # GET product by sku
+    # GET all products associated with a specific store
     def show
         # query for the product with the matching sku
-        product = Product.where(sku: params[:id])
+        product = Product.where(store_id: params[:id])
 
         # check if there was an object successfully returned or not
         if product.empty?
-            render json: {status: 'ERROR', message:'No product exists with this sku', data:product},status: :unprocessable_entity
+            render json: {status: 'ERROR', message:'This store_id does not exist', data:product},status: :unprocessable_entity
         else
-            render json: {status: 'SUCCESS', message:'Loaded product with specified sku', data:product},status: :ok
+            render json: {status: 'SUCCESS', message:'Loaded all products associated with this store_id', data:product},status: :ok
         end
     end
 
@@ -32,7 +32,18 @@ class::Api::V1::ProductsController < ApplicationController
         end
     end
 
+    # PUT a specific product associated with a specific store
+    def update
 
+        product = Product.find(params[:id])
+
+        if product.update(product_params)
+            render json: {status: 'SUCCESS', message:'Product Inventory updated', data:product},status: :ok
+        else
+            render json: {status: 'ERROR', message:'Could not add the new product', data:product},status: :unprocessable_entity
+        end
+
+    end
 
     private
     # only allow trusted params through
