@@ -32,6 +32,17 @@ class::Api::V1::ProductsController < ApplicationController
         end
     end
 
+    # POST to create many new products
+    def create_many
+        @starter_products = []
+
+        product_params[:starter_products].each do |product_data|
+            @starter_products << Product.create(product_data)
+        end
+
+        render json: {status: 'SUCCESS', message:'Added multiple products', data:@starter_products},status: :ok
+    end
+
     # PUT a specific product associated with a specific store
     def update
 
@@ -42,13 +53,12 @@ class::Api::V1::ProductsController < ApplicationController
         else
             render json: {status: 'ERROR', message:'Could update the inventory', data:product},status: :unprocessable_entity
         end
-
     end
 
     private
     # only allow trusted params through
     def product_params
-        params.permit(:product_name, :sku, :inventory_quantity, :store_id)
+        params.permit(:product_name, :sku, :inventory_quantity, :store_id, starter_products: [:product_name, :sku, :inventory_quantity, :store_id])
     end
 
 end

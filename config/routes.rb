@@ -29,4 +29,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :products do
+        collection do
+          post 'create_many'
+        end
+      end
+    end
+  end
+
 end
