@@ -27,9 +27,23 @@ class::Api::V1::StoresController < ApplicationController
         render json: {status: 'SUCCESS', message:'Deleted store', data:store},status: :ok
     end
 
+    def create_many
+        @starter_stores = []
+
+        store_params[:starter_stores].each do |store_data|
+            @starter_stores << Store.create(store_data)
+        end
+
+        render json: {status: 'SUCCESS', message:'Added multiple stores', data:@starter_stores},status: :ok
+
+    end
+
+
+
+
     private
     # permit a store_params to have a name for the new store
     def store_params
-        params.permit(:store_name)
+        params.permit(:store_name, starter_stores: [:store_name])
     end
 end

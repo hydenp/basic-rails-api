@@ -18,4 +18,15 @@ Rails.application.routes.draw do
     end
   end
 
+  # route to add many stores for starter data 
+  namespace :api do
+    namespace :v1 do
+      resources :stores do
+        collection do
+          post 'create_many'
+        end
+      end
+    end
+  end
+
 end
